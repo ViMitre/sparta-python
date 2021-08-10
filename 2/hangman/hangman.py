@@ -4,7 +4,7 @@ from wordlist import word_list
 from hangman_ascii import *
 import time
 
-# prompt = True
+
 print(colored("----------==========>>>>>>>>>>HANGMAN V1.2.54353453.546653612452<<<<<<<<<<==========----------", "blue"))
 print("Loading, please wait...")
 for p in range(101):
@@ -42,17 +42,22 @@ def strike(num):
 
 game = True
 word = select_word()
-print(word)
 hidden_word = "_" * len(word)
 used_letters = []
 strikes = 10
 
 while game:
+    prompt = True
     strike(strikes)
     print(colored(hidden_word, 'cyan'))
     if used_letters:
         print(colored("Used letters: " + str(used_letters)[1:-1], 'yellow'))
-    letter = input("Letter: ").upper()
+    while prompt:
+        letter = input("Letter: ").upper()
+        if letter.isalpha() and len(letter) == 1:
+            prompt = False
+        else:
+            print("Please enter a single letter")
     if letter in word and letter not in used_letters:
         hidden_word = reveal(hidden_word, letter, check_char(letter, word))
         used_letters.append(letter)
