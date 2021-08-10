@@ -18,7 +18,7 @@ while prompt:
     else:
         print("Please enter a valid number")
 
-select = input("Would you like to select FIZZ/FUZZ numbers? [y/n]")
+select = input("Would you like to select FIZZ/FUZZ numbers? (Default values are 3 and 5.) [y/n]")
 if select.lower() == "y":
     prompt = True
     while prompt:
