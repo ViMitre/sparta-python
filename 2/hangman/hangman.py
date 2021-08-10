@@ -4,8 +4,7 @@ from wordlist import word_list
 from hangman_ascii import *
 import time
 
-
-print(colored("----------==========>>>>>>>>>>HANGMAN V1.2.54353453.546653612452<<<<<<<<<<==========----------", "blue"))
+print(colored("----------==========>>>>>>>>>>HANGMAN V1.2.54.353453546653612452<<<<<<<<<<==========----------", "blue"))
 print("Loading, please wait...")
 for p in range(101):
     print('\r{}%'.format(p), end='')
@@ -46,6 +45,21 @@ hidden_word = "_" * len(word)
 used_letters = []
 strikes = 10
 
+
+def start(*multiargs):
+    if game:
+        global word
+        word = select_word()
+        global hidden_word
+        hidden_word = "_" * len(word)
+        global used_letters
+        used_letters = []
+        global strikes
+        strikes = 10
+
+
+start(select_word(), "_" * len(word), [], 10)
+
 while game:
     prompt = True
     strike(strikes)
@@ -71,10 +85,7 @@ while game:
             print("The word was " + word)
             select = input("Do you want to play again? [y/n]")
             if select.lower() == "y":
-                word = select_word()
-                hidden_word = "_" * len(word)
-                used_letters = []
-                strikes = 10
+                start(select_word(), "_" * len(word), [], 10)
             else:
                 print("Thanks for playing!")
                 game = False
@@ -84,10 +95,7 @@ while game:
         print(colored("Congratulations!", 'green'))
         select = input("Do you want to play again? [y/n]")
         if select.lower() == "y":
-            word = select_word()
-            hidden_word = "_" * len(word)
-            used_letters = []
-            strikes = 10
+            start(select_word(), "_" * len(word), [], 10)
         else:
             print("Thanks for playing!")
             game = False
