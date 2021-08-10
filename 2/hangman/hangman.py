@@ -1,14 +1,15 @@
 import random
+from termcolor import colored
 from wordlist import word_list
 from hangman_ascii import *
 import time
 
 # prompt = True
-print("----------==========>>>>>>>>>>HANGMAN V1.2.54353453.546653612452<<<<<<<<<<==========----------")
+print(colored("----------==========>>>>>>>>>>HANGMAN V1.2.54353453.546653612452<<<<<<<<<<==========----------", "blue"))
 print("Loading, please wait...")
-# for p in range(101):
-#     print('\r{}%'.format(p), end='')
-#     time.sleep(0.02)
+for p in range(101):
+    print('\r{}%'.format(p), end='')
+    time.sleep(0.02)
 print("\nWelcome to Hangman!")
 
 
@@ -29,7 +30,6 @@ def check_char(char, word):
 def reveal(hidden_word, char, lst):
     for x in lst:
         hidden_word = hidden_word[:x] + char + hidden_word[x + 1:]
-    # print(hidden_word)
     return hidden_word
 
 
@@ -37,8 +37,7 @@ def strike(num):
     num = str(num)
     with open("hangman_ascii/hangman_ascii_" + num + ".txt") as f:
         print(f.read())
-
-
+        print()
 
 
 game = True
@@ -49,32 +48,41 @@ used_letters = []
 strikes = 10
 
 while game:
-    # print(hidden_word)
     strike(strikes)
-    print(hidden_word)
+    print(colored(hidden_word, 'cyan'))
+    if used_letters:
+        print(colored("Used letters: " + str(used_letters)[1:-1], 'yellow'))
     letter = input("Letter: ").upper()
     if letter in word and letter not in used_letters:
         hidden_word = reveal(hidden_word, letter, check_char(letter, word))
         used_letters.append(letter)
-    elif letter not in word:# and letter not in used_letters:
+        used_letters.sort()
+    elif letter not in word:  # and letter not in used_letters:
         used_letters.append(letter)
         strikes -= 1
         if strikes == 0:
             strike(strikes)
-            select = input("You got hanged! Do you want to play again? [y/n]")
+            print(colored("HANG IN THERE...", 'red'))
+            print("The word was " + word)
+            select = input("Do you want to play again? [y/n]")
             if select.lower() == "y":
                 word = select_word()
                 hidden_word = "_" * len(word)
                 used_letters = []
                 strikes = 10
-            elif select.lower() == "n":
+            else:
                 print("Thanks for playing!")
                 game = False
-            else:
-                print("Please select yes/no [y/n]")
 
-    # print(hidden_word)
     if "_" not in hidden_word:
-        game = False
-        print("Congrats")
-
+        print(colored(hidden_word, 'green'))
+        print(colored("Congratulations!", 'green'))
+        select = input("Do you want to play again? [y/n]")
+        if select.lower() == "y":
+            word = select_word()
+            hidden_word = "_" * len(word)
+            used_letters = []
+            strikes = 10
+        else:
+            print("Thanks for playing!")
+            game = False
