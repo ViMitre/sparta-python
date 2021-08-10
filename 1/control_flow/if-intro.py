@@ -1,15 +1,18 @@
-while True:
-    try:
-        age = int(input("Age: "))
-    except ValueError:
-        print("Please enter a valid number")
-    if age < 0:
-        print("Please enter a valid number")
-        continue
+prompt = True
+while prompt:
+    age = input("Age: ")
+    if age.isdigit():
+        if 0 < int(age) < 120:
+            age = int(age)
+            prompt = False
+        else:
+            print("Please enter a valid age")
     else:
-        break
+        print("Please enter a valid number")
 
-while True:
+prompt = True
+
+while prompt:
     try:
         film = str.upper(input("Film cert (U, PG, 12, 15, 18: "))
         if film not in ["U", "PG", "12", "15", "18"]:
