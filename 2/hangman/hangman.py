@@ -78,6 +78,7 @@ while game:
         used_letters.sort()
     elif letter not in word:  # and letter not in used_letters:
         used_letters.append(letter)
+        used_letters.sort()
         strikes -= 1
         if strikes == 0:
             strike(strikes)
