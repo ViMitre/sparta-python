@@ -1,8 +1,7 @@
 import pytest
-
 from scrabble import *
 
-s = Scrabble()
+s = Scrabble(10)
 
 # Same as below
 @pytest.mark.parametrize("testword, expected_score",

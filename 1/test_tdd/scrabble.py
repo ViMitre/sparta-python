@@ -1,6 +1,7 @@
 import random
 import string
 
+
 # initialise with string of 7 letters
 # method to check submitted word can be made from tiles
 # a method to return score
@@ -8,23 +9,30 @@ import string
 # if it is, return score for that word
 
 class Scrabble():
-    def __init__(self):
-        self.get_rnd_string()
+    def __init__(self, tiles):
+        self.get_rnd_string(tiles)
 
-    def check_word(self):
-        word = input("Check word: ")
+    def check_word(self, tiles_lst):
+        word = input("Check word: ").upper()
+        checked_word = ''
+        for letter in word:
+            if letter not in tiles_lst:
+                checked_word = ''
+                break
+            else:
+                checked_word = word
+        self.return_score(checked_word)
 
-    def get_rnd_string(self, tiles=7):
+    def get_rnd_string(self, tiles):
         self.tiles = tiles
-        rnd_string = ''
+        tiles_lst = []
         for a in range(tiles):
-            rnd_string += random.choice(string.ascii_uppercase)
-        # print(rnd_string)
-        print(rnd_string)
-        return rnd_string
+            tiles_lst.append(random.choice(string.ascii_uppercase))
+        print(tiles_lst)
+        self.check_word(tiles_lst)
+        return tiles_lst
 
     def return_score(self, word):
-        self.word = word
         total_score = 0
         score = {"a": 1, "c": 3, "b": 3, "e": 1, "d": 2, "g": 2,
                  "f": 4, "i": 1, "h": 4, "k": 5, "j": 8, "m": 3,
@@ -33,13 +41,13 @@ class Scrabble():
                  "x": 8, "z": 10}
         for letter in word:
             for scores in score.keys():
-                if scores == letter:
+                if scores.upper() == letter:
                     total_score += score[scores]
         print(total_score)
         return total_score
 
-
     def check_if_valid(self):
-        print()
+        pass
 
-s = Scrabble()
+
+s = Scrabble(10)
