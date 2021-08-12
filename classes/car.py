@@ -13,18 +13,15 @@ class Car:
         self.max_speed = max_speed
 
     def get_speed(self):
-        if self.current_speed > self.max_speed:
-            return self.max_speed
-        elif self.current_speed < 0:
-            return 0
-        else:
-            return self.current_speed
+        return self.current_speed
 
     def accelerate(self, speed):
-        self.current_speed += speed
+        new_speed = self.current_speed + speed
+        self.current_speed = min(self.max_speed, new_speed)
 
-    def decelerate(self, speed):
-        self.current_speed -= speed
+    def decelerate(self, brake):
+        new_speed = self.current_speed - brake
+        self.current_speed = max(0, new_speed)
 
 
 my_car = Car(60, 200)
