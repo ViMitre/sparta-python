@@ -1,5 +1,6 @@
 import random
 import string
+import enchant
 
 
 # initialise with string of 7 letters
@@ -20,6 +21,7 @@ class Scrabble():
                 checked_word = ''
                 break
             else:
+                tiles_lst.remove(letter)
                 checked_word = word
         self.return_score(checked_word)
 
@@ -40,13 +42,13 @@ class Scrabble():
                  "r": 1, "u": 1, "t": 1, "w": 4, "v": 4, "y": 4,
                  "x": 8, "z": 10}
         for letter in word:
-            for scores in score.keys():
-                if scores.upper() == letter:
-                    total_score += score[scores]
+            total_score += score[letter.lower()]
         print(total_score)
         return total_score
 
-    def check_if_valid(self):
+    def check_if_valid(self, word):
+        d = enchant.Dict("en_US")
+        d.check(word)
         pass
 
 
