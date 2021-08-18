@@ -32,4 +32,4 @@ def test_invalid_word():
     s.tiles = 'CJTUDSI'
     assert s.is_valid_word('') is False
 
-def test_get_score():
+# def test_get_score():
